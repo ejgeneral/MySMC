@@ -84,5 +84,23 @@ namespace Domain.Entities.ResourceAggregate
 
             return t;
         }
+
+        /// <summary>
+        /// Add an Address record
+        /// </summary>
+        /// <param name="address"></param>
+        public void AddAddress(Address address)
+        {
+            _addresses.Add(address);
+        }
+
+        /// <summary>
+        /// Add a new Parent Info record
+        /// </summary>
+        /// <param name="parent"></param>
+        public void AddParent(ParentInfo parent) 
+        { 
+            _parentInfos.Add(parent);
+        }
     }
 }
