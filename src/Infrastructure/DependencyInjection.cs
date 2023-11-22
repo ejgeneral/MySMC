@@ -12,10 +12,11 @@ namespace Infrastructure
 
             Guard.Against.NullOrEmpty(connectionString, message: "Connection String 'AdminConnection' not found!");
 
-
             services.AddDbContext<AdminDbContext>((sp, options) =>
             {
-
+                // we can get an option to use another type of database here
+                // sometime in the near future
+                options.UseSqlServer(connectionString);
             });
 
             return services;
