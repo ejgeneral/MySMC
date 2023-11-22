@@ -17,7 +17,8 @@ namespace Infrastructure.Data.Configurations
         public void ConfigureResourceTable(EntityTypeBuilder<Resource> builder)
         {
             builder.ToTable("Resource");
-
+            builder.Ignore(p => p.Age);
+            
             builder.HasKey(x => x.Guid)
                 .HasAnnotation("SqlServer:Clustered", false);
 

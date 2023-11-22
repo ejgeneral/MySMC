@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Design;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Data
 {
@@ -13,7 +8,7 @@ namespace Infrastructure.Data
         public  AdminDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<AdminDbContext>();
-            optionsBuilder.UseSqlServer("Server=SQLDB02\\MANOLITO;Database=sm_admin;Integrated Security=True;TrustServerCertificate=True",
+            optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("SM_ADMIN"),
                 builderOptions =>
                     builderOptions.MigrationsAssembly(typeof(AdminDbContext).GetTypeInfo().Assembly.GetName().Name));
 

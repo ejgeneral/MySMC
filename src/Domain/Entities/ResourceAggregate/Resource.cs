@@ -1,4 +1,5 @@
-﻿using Domain.Common;
+﻿using System.Runtime.InteropServices.JavaScript;
+using Domain.Common;
 using MySMC.Domain.Common.Types;
 
 namespace Domain.Entities.ResourceAggregate
@@ -27,6 +28,9 @@ namespace Domain.Entities.ResourceAggregate
 
         // Birthday, optional
         public DateOnly? Birthday { get; private set; }
+
+        // Calculate Age by number of Total days between now and birthday divided by 365.25
+        public double Age => Birthday.HasValue ? (DateTime.Now - Birthday.Value.ToDateTime(TimeOnly.MinValue)).TotalDays / 365.25 : 0;
 
         // Birthplace
         public string? Birthplace { get; private set; }
