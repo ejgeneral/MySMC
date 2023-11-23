@@ -59,6 +59,9 @@ namespace Infrastructure.Data.Configurations
         {
             builder.OwnsMany(p => p.AddressList, b => {
                 b.ToTable("Address");
+
+                b.HasKey(p => p.Id);
+                
                 b.WithOwner()
                     .HasForeignKey(p => p.ResourceId)
                     .HasPrincipalKey(p => p.Guid);
@@ -92,6 +95,9 @@ namespace Infrastructure.Data.Configurations
             builder.OwnsMany(p => p.ParentList, b =>
             {
                 b.ToTable("ParentInfo");
+
+                b.HasKey(p => p.Id);
+                
                 b.WithOwner()
                     .HasForeignKey(p => p.ResourceId)
                     .HasPrincipalKey(p => p.Guid);

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AdminDbContext))]
-    [Migration("20231122032821_InitialMigration")]
+    [Migration("20231123013326_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -93,9 +93,6 @@ namespace Infrastructure.Data.Migrations
                 {
                     b.OwnsMany("Domain.Entities.ResourceAggregate.Address", "AddressList", b1 =>
                         {
-                            b1.Property<Guid>("ResourceId")
-                                .HasColumnType("uniqueidentifier");
-
                             b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int");
@@ -142,7 +139,12 @@ namespace Infrastructure.Data.Migrations
                                 .IsRequired()
                                 .HasColumnType("nvarchar(35)");
 
-                            b1.HasKey("ResourceId", "Id");
+                            b1.Property<Guid>("ResourceId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("ResourceId");
 
                             b1.ToTable("Address", (string)null);
 
@@ -152,9 +154,6 @@ namespace Infrastructure.Data.Migrations
 
                     b.OwnsMany("Domain.Entities.ResourceAggregate.ParentInfo", "ParentList", b1 =>
                         {
-                            b1.Property<Guid>("ResourceId")
-                                .HasColumnType("uniqueidentifier");
-
                             b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int");
@@ -208,10 +207,15 @@ namespace Infrastructure.Data.Migrations
                             b1.Property<string>("ParentType")
                                 .HasColumnType("nvarchar(15)");
 
+                            b1.Property<Guid>("ResourceId")
+                                .HasColumnType("uniqueidentifier");
+
                             b1.Property<string>("SchoolAttended")
                                 .HasColumnType("nvarchar(100)");
 
-                            b1.HasKey("ResourceId", "Id");
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("ResourceId");
 
                             b1.ToTable("ParentInfo", (string)null);
 

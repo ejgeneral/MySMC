@@ -62,7 +62,7 @@ namespace Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Address", x => new { x.ResourceId, x.Id });
+                    table.PrimaryKey("PK_Address", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Address_Resource_ResourceId",
                         column: x => x.ResourceId,
@@ -97,7 +97,7 @@ namespace Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ParentInfo", x => new { x.ResourceId, x.Id });
+                    table.PrimaryKey("PK_ParentInfo", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ParentInfo_Resource_ResourceId",
                         column: x => x.ResourceId,
@@ -105,6 +105,16 @@ namespace Infrastructure.Data.Migrations
                         principalColumn: "Guid",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Address_ResourceId",
+                table: "Address",
+                column: "ResourceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ParentInfo_ResourceId",
+                table: "ParentInfo",
+                column: "ResourceId");
         }
 
         /// <inheritdoc />
