@@ -1,6 +1,4 @@
-﻿using Ardalis.SmartEnum;
-
-namespace MySMC.Domain.Common.Types;
+﻿namespace Domain.Common.Types;
 
 public sealed class Gender : SmartEnum<Gender>
 {

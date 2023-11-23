@@ -1,6 +1,5 @@
-﻿using System.Runtime.InteropServices.JavaScript;
-using Domain.Common;
-using MySMC.Domain.Common.Types;
+﻿using Domain.Common;
+using Domain.Common.Types;
 
 namespace Domain.Entities.ResourceAggregate
 {

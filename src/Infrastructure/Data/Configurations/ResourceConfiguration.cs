@@ -1,7 +1,6 @@
 ﻿using Domain.Common.Types;
 using Domain.Entities.ResourceAggregate;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MySMC.Domain.Common.Types;
 
 namespace Infrastructure.Data.Configurations
 {
@@ -14,7 +13,7 @@ namespace Infrastructure.Data.Configurations
             ConfigureParentInfoTable(builder);
         }
 
-        public void ConfigureResourceTable(EntityTypeBuilder<Resource> builder)
+        private void ConfigureResourceTable(EntityTypeBuilder<Resource> builder)
         {
             builder.ToTable("Resource");
             builder.Ignore(p => p.Age);
@@ -55,7 +54,7 @@ namespace Infrastructure.Data.Configurations
 
         }
 
-        public void ConfigureAddressTable(EntityTypeBuilder<Resource> builder)
+        private void ConfigureAddressTable(EntityTypeBuilder<Resource> builder)
         {
             builder.OwnsMany(p => p.AddressList, b => {
                 b.ToTable("Address");
@@ -90,7 +89,7 @@ namespace Infrastructure.Data.Configurations
             });
         }
 
-        public void ConfigureParentInfoTable(EntityTypeBuilder<Resource> builder)
+        private void ConfigureParentInfoTable(EntityTypeBuilder<Resource> builder)
         {
             builder.OwnsMany(p => p.ParentList, b =>
             {
