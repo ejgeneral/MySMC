@@ -1,8 +1,20 @@
+using Application;
+using Application.Common.Interfaces;
+using Infrastructure;
+using WebPortal.Api.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddApplicationServices();
+
+
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

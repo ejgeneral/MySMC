@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Infrastructure.Data.Interceptors
 {
-    public class AuditableEntityInterceptor : SaveChangesInterceptor
+    public class AuditableEntitySaveChangesInterceptor : SaveChangesInterceptor
     {
         private readonly ICurrentUserService _user;
-        private readonly TimeProvider _dateTime;
+        private readonly IDateTime _dateTime;
 
-        public AuditableEntityInterceptor(
+        public AuditableEntitySaveChangesInterceptor(
             ICurrentUserService user,
-            TimeProvider dateTime)
+            IDateTime dateTime)
         {
             _user = user;
             _dateTime = dateTime;
@@ -42,13 +42,13 @@ namespace Infrastructure.Data.Interceptors
                 if (entry.State == EntityState.Added)
                 {
                     entry.Entity.CreatedBy = _user.UserId;
-                    entry.Entity.Created = _dateTime.GetUtcNow();
-                }
+                    entry.Entity.Created = _dateTime.Now;
+                } 
 
                 if (entry.State == EntityState.Added || entry.State == EntityState.Modified || entry.HasChangedOwnedEntities())
                 {
                     entry.Entity.LastModifiedBy = _user.UserId;
-                    entry.Entity.LastModified = _dateTime.GetUtcNow();
+                    entry.Entity.LastModified = _dateTime.Now;
                 }
             }
         }
@@ -57,9 +57,10 @@ namespace Infrastructure.Data.Interceptors
     public static class Extensions
     {
         public static bool HasChangedOwnedEntities(this EntityEntry entry) =>
-            entry.References.Any(r =>
-                r.TargetEntry != null &&
-                r.TargetEntry.Metadata.IsOwned() &&
+            entry.References.Any(r => 
+                r.TargetEntry != null && 
+                r.TargetEntry.Metadata.IsOwned() && 
                 (r.TargetEntry.State == EntityState.Added || r.TargetEntry.State == EntityState.Modified));
     }
+
 }
